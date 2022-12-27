@@ -102,12 +102,10 @@ TO: the highest range boundary (default: 100)"
   (cl-loop for i upfrom 1 upto length
 	   collect (random-generators-number from to)))
 
-(iter-defun random-generators-sequence-from(sequence &optional length)
+(iter-defun random-generators--sequence-from-implementation(sequence &optional length)
   "Generate a sequence with a specific LENGTH from another one.
 LENGTH: the sequence length (default: 10)
 SEQUENCE: the sequence to take items from"
-  (if (null sequence)
-      (error "The sequence '%s' is nil" sequence))
   (unless (or (integerp length) (null length))
     (error "The list length '%s' is not an integer or nil" length))
 
@@ -121,12 +119,28 @@ SEQUENCE: the sequence to take items from"
   (dotimes (i length)
     (iter-yield (elt sequence (random-generators-number 0 (1- (length sequence)))))))
 
-(defun random-generators-list-from(sequence &optional length)
-  "Generate a list with a specific LENGTH from another one.
-LENGTH: the list length (default: 10)
+(iter-defun random-generators-sequence-from(sequence &optional length)
+  "Generate a sequence with a specific LENGTH from another one.
+LENGTH: the sequence length (default: 10)
 SEQUENCE: the sequence to take items from"
   (if (null sequence)
       (error "The sequence '%s' is nil" sequence))
+  (iter-do (item (random-generators--sequence-from-implementation sequence length))
+    (iter-yield item)))
+
+(iter-defun random-generators-sequence-from-or-empty(sequence &optional length)
+  "Try generate a sequence with a specific LENGTH from another one.
+LENGTH: the sequence length (default: 10)
+SEQUENCE: the sequence to take items from"
+  (if (null sequence)
+      '()
+    (iter-do (item (random-generators--sequence-from-implementation sequence length))
+      (iter-yield item))))
+
+(defun random-generators--list-from-implementation(sequence &optional length)
+  "Generate a list with a specific LENGTH from another one.
+LENGTH: the list length (default: 10)
+SEQUENCE: the sequence to take items from"
   (unless (or (integerp length) (null length))
     (error "The list length '%s' is not an integer or nil" length))
 
@@ -139,6 +153,22 @@ SEQUENCE: the sequence to take items from"
   
   (cl-loop for i upfrom 1 upto length
 	   collect (elt sequence (random-generators-number 0 (1- (length sequence))))))
+
+(defun random-generators-list-from(sequence &optional length)
+  "Generate a list with a specific LENGTH from another one.
+LENGTH: the list length (default: 10)
+SEQUENCE: the sequence to take items from"
+  (if (null sequence)
+      (error "The sequence '%s' is nil" sequence))
+  (random-generators--list-from-implementation sequence length))
+
+(defun random-generators-list-from-or-empty(sequence &optional length)
+  "Try generate a list with a specific LENGTH from another one.
+LENGTH: the list length (default: 10)
+SEQUENCE: the sequence to take items from"
+  (if (null sequence)
+      '()
+    (random-generators--list-from-implementation sequence length)))
 
 (provide 'random-generators)
 
