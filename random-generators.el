@@ -20,7 +20,7 @@
 ;;; Commentary:
 ;;  For details view README file.
 
-;; URL: https://github.com/Emilyseville7cfg/random-generators
+;; URL: https://github.com/emilyseville7cfg-better-emacs/random-generators
 
 ;;; Code:
 
