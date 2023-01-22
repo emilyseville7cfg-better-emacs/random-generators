@@ -100,4 +100,20 @@
   "Expect a correct sequence when all parameters are correct."
   (should (equal (random-generators-list-from '(1) 5) '(1 1 1 1 1))))
 
+(ert-deftest random-generators-sequence-from-or-empty--expect-error-when-length-is-not-integer()
+  "Expect error when LENGTH is not an integer."
+  (should-error (iter-do (item (random-generators-sequence-from-or-empty '(1) "wrong")) (message "unreachable"))))
+
+(ert-deftest random-generators-sequence-from-or-empty--expect-correct-sequence-when-parameters-are-correct()
+  "Expect a correct sequence when all parameters are correct."
+  (iter-do (item (random-generators-sequence-from-or-empty '(1) 5)) (should (equal item 1))))
+
+(ert-deftest random-generators-list-from-or-empty--expect-error-when-length-is-not-integer()
+  "Expect error when LENGTH is not an integer."
+  (should-error (random-generators-list-from-or-empty '(1) "wrong")))
+
+(ert-deftest random-generators-sequence-from-or-empty--expect-correct-sequence-when-parameters-are-correct()
+  "Expect a correct sequence when all parameters are correct."
+  (should (equal (random-generators-list-from-or-empty '(1) 5) '(1 1 1 1 1))))
+
 ;;; tests.el ends here
