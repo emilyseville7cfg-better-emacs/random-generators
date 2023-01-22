@@ -39,8 +39,42 @@
   (should-error (random-generators-number 10 1)))
 
 (ert-deftest random-generators-number--expect-correct-number-when-parameters-are-correct()
-  "Expect error when FROM is greater than TO."
+  "Expect a correct number when all parameters are correct."
   (let ((result (random-generators-number 1 10)))
     (should (and (<= 1 result) (<= result 10)))))
+
+(ert-deftest random-generators-sequence--expect-error-when-length-is-not-integer()
+  "Expect error when LENGTH is not an integer."
+  (should-error (iter-do (item (random-generators-sequence "wrong")) (message "unreachable"))))
+
+(ert-deftest random-generators-sequence--expect-error-when-from-is-not-integer()
+  "Expect error when FROM is not an integer."
+  (should-error (iter-do (item (random-generators-sequence 5 "wrong")) (message "unreachable"))))
+
+(ert-deftest random-generators-sequence--expect-error-when-to-is-not-integer()
+  "Expect error when TO is not an integer."
+  (should-error (iter-do (item (random-generators-sequence 5 1 "wrong")) (message "unreachable"))))
+
+(ert-deftest random-generators-sequence--expect-correct-sequence-when-parameters-are-correct()
+  "Expect a correct sequence when all parameters are correct."
+  (iter-do (item (random-generators-sequence 1 1 10)) (should (and (<= 1 item) (<= item 10)))))
+
+(ert-deftest random-generators-list--expect-error-when-length-is-not-integer()
+  "Expect error when LENGTH is not an integer."
+  (should-error (random-generators-list "wrong")))
+
+(ert-deftest random-generators-list--expect-error-when-from-is-not-integer()
+  "Expect error when FROM is not an integer."
+  (should-error (random-generators-list 5 "wrong")))
+
+(ert-deftest random-generators-list--expect-error-when-to-is-not-integer()
+  "Expect error when TO is not an integer."
+  (should-error (random-generators-list 5 1 "wrong")))
+
+(ert-deftest random-generators-list--expect-correct-list-when-parameters-are-correct()
+  "Expect a correct list when all parameters are correct."
+  (let ((result (car (random-generators-list 1 1 10))))
+    (should (and (<= 1 result) (<= result 10)))))
+
 
 ;;; tests.el ends here
