@@ -1,4 +1,8 @@
-# random-generators
+# Random generators
+
+[![CI](https://github.com/emilyseville7cfg-better-emacs/random-generators/actions/workflows/ci.yml/badge.svg)](https://github.com/emilyseville7cfg-better-emacs/random-generators/actions/workflows/ci.yml)
+
+Functions to generate random numbers and data structures.
 
 ## Requirenments
 
