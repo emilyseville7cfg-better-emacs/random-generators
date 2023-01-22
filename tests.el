@@ -112,8 +112,8 @@
   "Expect error when LENGTH is not an integer."
   (should-error (random-generators-list-from-or-empty '(1) "wrong")))
 
-(ert-deftest random-generators-sequence-from-or-empty--expect-correct-sequence-when-parameters-are-correct()
-  "Expect a correct sequence when all parameters are correct."
+(ert-deftest random-generators-list-from-or-empty--expect-correct-list-when-parameters-are-correct()
+  "Expect a correct list when all parameters are correct."
   (should (equal (random-generators-list-from-or-empty '(1) 5) '(1 1 1 1 1))))
 
 ;;; tests.el ends here
