@@ -18,11 +18,13 @@
 ;; along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Commentary:
-;;  For details view README file.
+;;  This package is the part of Better Emacs project.
 
 ;; URL: https://github.com/emilyseville7cfg-better-emacs/random-generators
 
 ;;; Code:
+
+(require 'generator)
 
 (defun random-generators-number(&optional from to)
   "Generate a number inside specific boundaries.
