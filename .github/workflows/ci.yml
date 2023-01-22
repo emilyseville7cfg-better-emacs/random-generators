@@ -1,0 +1,13 @@
+name: CI
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run-unit-tests:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: run unit tests
+        uses: emilyseville7cfg-better-emacs/unit-test-runner@v1.2
